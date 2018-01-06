@@ -1,0 +1,13 @@
+int accum = 0;
+
+int sum(int x, int y){
+    int t = x + y;
+    accum += t;
+    return t;
+}
+
+int main(int argc, char **argv)
+{
+    sum(1, 2);
+    return 0;
+}
