@@ -1,25 +1,35 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-void callee(int n){
-    if(n == 0) return;
-    printf("%d (0x%08x)\n", n, (int)&n);
+void determine(signed int signed_num, unsigned int unsigned_num){
+    signed int signed_old_num = signed_num;
+    unsigned int unsigned_old_num = unsigned_num;
     
-    callee(n-1);
-    printf("%d (0x%08x)\n", n, (int)&n);
+    signed_num = signed_num | 0xffffffff;
+    unsigned_num = unsigned_num | 0xffffffff;
     
-}
-
-int main(int argc, char ** argv){
-    int n;
-    
-    if(argc < 2){
-        printf("USAGE: %s <integer>\n", argv[0]);
-        return 1;
+    if (signed_num < 0) {
+        printf("%d is a signed_num\n", signed_old_num);
     }
     
-    n = atoi(argv[1]);
+    if (unsigned_num > 0) {
+        printf("%d is a unsigned_num\n", unsigned_old_num);
+    }
+}
+
+int main(int argc, char **argv)
+{
+    signed int signed_num;
+    unsigned int unsigned_num;
     
-    callee(n);
+    /* both is positive */
+    signed_num = 10;
+    unsigned_num = 20;
+    determine(signed_num, unsigned_num);
+    
+    /* signed integer is negative */
+    signed_num = -10;
+    determine(signed_num, unsigned_num);
+    
     return 0;
 }
+
